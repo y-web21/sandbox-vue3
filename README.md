@@ -7,15 +7,18 @@ https://handson.vuejs-jp.org/
 https://cli.vuejs.org/guide/installation.html
 
 ```bash
-$ sudo n lts
+sudo n lts
    installed : v16.14.2 (with npm 8.5.0)
-$ sudo npm install -g @vue/cli
-$ vue --version
+sudo npm install -g @vue/cli
+vue --version
 @vue/cli 5.0.4
-$ vue create .
-$ vue serve
+vue create .
+vue serve
 ```
-
+```bash
+mkdir -p public/images
+curl https://handson.vuejs-jp.org/vue3-lab-handson-images.zip --output a && unzip a -d public/images/ && rm a
+```
 
 ## Project setup
 ```
