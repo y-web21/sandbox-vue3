@@ -21,18 +21,24 @@
     </template>
   </main>
 
-<div id="app">
-  <!-- :key の index 指定は、並び替えなどで不具合があるため非推奨とのこと -->
-  <!-- だが、:key の指定がないとエラーを吐くため必須だと思われる。 []の配列形式だと、indexでも渡しておかないと動かないのでとりあえず渡す -->
-  <ul>
-    <li v-for="(page, index) in pages" :key="index">{{index}}, {{ page }}</li>
-  </ul>
-  <!-- key value (index) の取り出し -->
-  <!-- 変数の名前は自由だが、value, key, index が固定のようだ。 -->
-  <ul>
-    <li v-for="(value, key, yandex) in dicts" :key="yandex">{{yandex}}, {{key}}, {{ value }}</li>
-  </ul>
-</div>
+  <div id="app">
+    <!-- :key の index 指定は、並び替えなどで不具合があるため非推奨とのこと -->
+    <!-- だが、:key の指定がないとエラーを吐くため必須だと思われる。 []の配列形式だと、indexでも渡しておかないと動かないのでとりあえず渡す -->
+    <ul>
+      <li v-for="(page, index) in pages" :key="index">{{ index }}, {{ page }}</li>
+    </ul>
+    <!-- key value (index) の取り出し -->
+    <!-- 変数の名前は自由だが、value, key, index が固定のようだ。 -->
+    <ul>
+      <li v-for="(value, key, yandex) in dicts" :key="yandex">{{ yandex }}, {{ key }}, {{ value }}</li>
+    </ul>
+  </div>
+
+  <!-- v-show は、display: none;として処理されるだけで、DOMには存在する。 -->
+  <!-- DOMを再構成しない分切り替えコストに優れるが、初期のDOM量は増える -->
+  <div v-show="true">something</div>
+  <div v-show="false">something</div>
+
 </template>
 
 <script>
