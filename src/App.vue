@@ -5,14 +5,16 @@
   </header>
   <main class="main">
     <template v-for="item in items" :key="item.id">
-      <div class="item">
-        <div class="thumbnail">
-          <img :src="item.image" alt="">
-        </div>
-        <div class="description">
-          <h2>{{ item.name }}</h2>
-          <p>{{ item.description }}</p>
-          <span>¥<span class="price">{{ item.price }}</span></span>
+      <div v-if="!item.soldOut">
+        <div class="item">
+          <div class="thumbnail">
+            <img :src="item.image" alt="">
+          </div>
+          <div class="description">
+            <h2>{{ item.name }}</h2>
+            <p>{{ item.description }}</p>
+            <span>¥<span class="price">{{ item.price }}</span></span>
+          </div>
         </div>
       </div>
     </template>
@@ -44,7 +46,8 @@ export default {
           description:
             '刻んだ野菜をディップに優しいアボカドに味のソースと混ぜて。こんがり焼いたバゲットとお召し上がれ。',
           price: 48000,
-          image: '/images/item1.jpg'
+          image: '/images/item1.jpg',
+          soldOut: false
         },
         {
           id: 2,
@@ -52,7 +55,9 @@ export default {
           description:
             '焼きました。夢。',
           price: 20,
-          image: '/images/item2.jpg'
+          image: '/images/item2.jpg',
+          soldOut: false
+
         },
         {
           id: 3,
@@ -60,7 +65,8 @@ export default {
           description:
             '生まれはロスの炭酸水。CO2!CO2!',
           price: 320,
-          image: '/images/item3.jpg'
+          image: '/images/item3.jpg',
+          soldOut: true
         },
         {
           id: 4,
@@ -68,7 +74,8 @@ export default {
           description:
             'イタリア大好きなみんなをだっぷりかけたアツアツです。フライの一品フレンチ。',
           price: 670,
-          image: '/images/item4.jpg'
+          image: '/images/item4.jpg',
+          soldOut: false
         }
       ],
       pages: [
