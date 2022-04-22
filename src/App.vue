@@ -6,6 +6,7 @@
     <h1>Vue.js ハンズオン</h1>
   </header>
   <main class="main">
+    <template v-for="item in items" :key="item.id">
     <div class="item">
       <div class="thumbnail">
         <img
@@ -18,7 +19,9 @@
         <span>¥<span class="price">{{ item.price }}</span></span>
       </div>
     </div>
+    </template>
   </main>
+
 </template>
 
 <script>
@@ -26,13 +29,40 @@ export default {
   name: 'App',
   data() {
     return {
-      item: {
+      items: [
+      {
+        id: 1,
         name: 'アボカドディップバケッ！',
         description:
           '刻んだ野菜をディップに優しいアボカドに味のソースと混ぜて。こんがり焼いたバゲットとお召し上がれ。',
         price: 48000,
         image: '/images/item1.jpg'
+      },
+      {
+        id: 2,
+        name: '小麦粉',
+        description:
+          '焼きました。夢。',
+        price: 20,
+        image: '/images/item2.jpg'
+      },
+      {
+        id: 3,
+        name: 'HOP WTR',
+        description:
+          '生まれはロスの炭酸水。CO2!CO2!',
+        price: 320,
+        image: '/images/item3.jpg'
+      },
+      {
+        id: 4,
+        name: 'チーレンチライ',
+        description:
+          'イタリア大好きなみんなをだっぷりかけたアツアツです。フライの一品フレンチ。',
+        price: 670,
+        image: '/images/item4.jpg'
       }
+      ]
     }
   }
 }
