@@ -17,6 +17,7 @@
           </div>
         </div>
       </div>
+      <div v-else>うりきれぢゃ・・・</div>
     </template>
   </main>
 
