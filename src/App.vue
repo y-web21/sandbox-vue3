@@ -5,6 +5,8 @@
   </header>
   <div>商品数：{{ stockQuantity() }}</div>
   <div>商品数property: {{ stockQuantityComputed }}</div>
+  <div>now_method: {{ getDate() }}</div>
+  <div>now_computed: {{ getDateComputed }}</div>
   <main class="main">
     <template v-for="item in items" :key="item.id">
       <div v-if="!item.soldOut">
@@ -24,6 +26,7 @@
       </div>
     </template>
   </main>
+
 
   <div id="app">
     <!-- :key の index 指定は、並び替えなどで不具合があるため非推奨とのこと -->
@@ -121,12 +124,21 @@ export default {
      */
     stockItem(item) {
       item.soldOut = false
-    }
+    },
+    /**
+     * 現在時刻を取得する
+     */
+    getDate() {
+      return Date.now()
+    },
   },
   computed: {
     stockQuantityComputed() {
       return this.items.filter(item => item.soldOut === false).length
-    }
+    },
+    getDateComputed() {
+      return Date.now()
+    },
   }
 }
 </script>
