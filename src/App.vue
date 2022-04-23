@@ -10,7 +10,15 @@
   <main class="main">
     <template v-for="item in items" :key="item.id">
       <div v-if="!item.soldOut">
-        <div class="item" :class="{ 'selected-item': item.selected }" @click="item.selected = !item.selected">
+        <!-- 要素によっては、タブフォーカスするのに tabindex の付与が必要。テキストボックスなどはデフォルトでフォーカス可能  -->
+        <!--v-on:click との併用も可能。 -->
+        <div
+          class="item"
+          :class="{ 'selected-item': item.selected }"
+          @click="item.selected = !item.selected"
+          @keyup.enter="item.selected = !item.selected"
+          tabindex="0"
+        >
           <div class="thumbnail">
             <img :src="item.image" alt="" />
           </div>
@@ -25,6 +33,8 @@
       </div>
       <div v-else>うりきれぢゃ・・・<button type="button" @click="stockItem(item)">入荷</button></div>
     </template>
+
+    <input v-on:keyup.enter="alert" />
   </main>
 
   <div id="app">
@@ -124,6 +134,9 @@ export default {
      */
     getDate() {
       return Date.now();
+    },
+    alert() {
+      alert("keyup しましたね！！");
     },
   },
   computed: {
