@@ -4,6 +4,7 @@
     <h1>Vue.js ハンズオン</h1>
   </header>
   <div>商品数：{{ stockQuantity() }}</div>
+  <div>商品数property: {{ stockQuantityComputed }}</div>
   <main class="main">
     <template v-for="item in items" :key="item.id">
       <div v-if="!item.soldOut">
@@ -112,7 +113,7 @@ export default {
      * 在庫のある商品数を返す
      */
     stockQuantity() {
-      return this.items.filter(item => item.soldOut === false ).length
+      return this.items.filter(item => item.soldOut === false).length
     },
     /**
      * 商品の在庫状況を変更する
@@ -120,6 +121,11 @@ export default {
      */
     stockItem(item) {
       item.soldOut = false
+    }
+  },
+  computed: {
+    stockQuantityComputed() {
+      return this.items.filter(item => item.soldOut === false).length
     }
   }
 }
