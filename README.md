@@ -1,7 +1,8 @@
 # vue3-handson
 
-https://handson.vuejs-jp.org/
+[Vue.js 3 ハンズオン | Vue3 Hands-on](https://handson.vuejs-jp.org/)
 
+[Vue.js 3 official](https://v3.ja.vuejs.org/)
 ## vue/cli installation
 
 https://cli.vuejs.org/guide/installation.html
@@ -19,6 +20,10 @@ vue serve
 mkdir -p public/images
 curl https://handson.vuejs-jp.org/vue3-lab-handson-images.zip --output a && unzip a -d public/images/ && rm a
 ```
+
+準備完了。ハンズオン本編へ
+
+[data を定義し、商品をレンダリングする | Vue3 Hands-on](https://handson.vuejs-jp.org/rendering.html#%E5%95%86%E5%93%81%E3%82%92%E3%83%AC%E3%83%B3%E3%82%BF%E3%82%99%E3%83%AA%E3%83%B3%E3%82%AF%E3%82%99)
 
 ## Project setup
 ```
