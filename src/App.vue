@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <img src="/images/logo.svg" alt="">
+    <img src="/images/logo.svg" alt="" />
     <h1>Vue.js ハンズオン</h1>
   </header>
   <div>商品数：{{ stockQuantity() }}</div>
@@ -12,21 +12,20 @@
       <div v-if="!item.soldOut">
         <div class="item" :class="{ 'selected-item': item.selected }" @click="item.selected = !item.selected">
           <div class="thumbnail">
-            <img :src="item.image" alt="">
+            <img :src="item.image" alt="" />
           </div>
           <div class="description">
             <h2>{{ item.name }}</h2>
             <p>{{ item.description }}</p>
-            <span>¥<span class="price">{{ pricePrefix(item.price) }}</span></span>
+            <span
+              >¥<span class="price">{{ pricePrefix(item.price) }}</span></span
+            >
           </div>
         </div>
       </div>
-      <div v-else>
-        うりきれぢゃ・・・<button type="button" @click="stockItem(item)">入荷</button>
-      </div>
+      <div v-else>うりきれぢゃ・・・<button type="button" @click="stockItem(item)">入荷</button></div>
     </template>
   </main>
-
 
   <div id="app">
     <!-- :key の index 指定は、並び替えなどで不具合があるため非推奨とのこと -->
@@ -45,68 +44,59 @@
   <!-- DOMを再構成しない分切り替えコストに優れるが、初期のDOM量は増える -->
   <div v-show="true">something</div>
   <div v-show="false">something</div>
-
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
       items: [
         {
           id: 1,
-          name: 'アボカドディップバケッ！',
+          name: "アボカドディップバケッ！",
           description:
-            '刻んだ野菜をディップに優しいアボカドに味のソースと混ぜて。こんがり焼いたバゲットとお召し上がれ。',
+            "刻んだ野菜をディップに優しいアボカドに味のソースと混ぜて。こんがり焼いたバゲットとお召し上がれ。",
           price: 48000,
-          image: '/images/item1.jpg',
+          image: "/images/item1.jpg",
           soldOut: false,
-          selected: false
+          selected: false,
         },
         {
           id: 2,
-          name: '小麦粉',
-          description:
-            '焼きました。夢。',
+          name: "小麦粉",
+          description: "焼きました。夢。",
           price: 20,
-          image: '/images/item2.jpg',
+          image: "/images/item2.jpg",
           soldOut: false,
-          selected: false
-
+          selected: false,
         },
         {
           id: 3,
-          name: 'HOP WTR',
-          description:
-            '生まれはロスの炭酸水。CO2!CO2!',
+          name: "HOP WTR",
+          description: "生まれはロスの炭酸水。CO2!CO2!",
           price: 320,
-          image: '/images/item3.jpg',
+          image: "/images/item3.jpg",
           soldOut: true,
-          selected: false
+          selected: false,
         },
         {
           id: 4,
-          name: 'チーレンチライ',
-          description:
-            'イタリア大好きなみんなをだっぷりかけたアツアツです。フライの一品フレンチ。',
+          name: "チーレンチライ",
+          description: "イタリア大好きなみんなをだっぷりかけたアツアツです。フライの一品フレンチ。",
           price: 670,
-          image: '/images/item4.jpg',
+          image: "/images/item4.jpg",
           soldOut: false,
-          selected: false
-        }
+          selected: false,
+        },
       ],
-      pages: [
-        'page A',
-        'page B',
-        'page C',
-      ],
+      pages: ["page A", "page B", "page C"],
       dicts: {
-        diA: 'dictA',
-        diB: 'dictB',
-        diC: 'dictC'
-      }
-    }
+        diA: "dictA",
+        diB: "dictB",
+        diC: "dictC",
+      },
+    };
   },
   methods: {
     /**
@@ -114,37 +104,37 @@ export default {
      * @param {number} price 価格
      */
     pricePrefix(price) {
-      return price.toLocaleString()
+      return price.toLocaleString();
     },
     /**
      * 在庫のある商品数を返す
      */
     stockQuantity() {
-      return this.items.filter(item => item.soldOut === false).length
+      return this.items.filter((item) => item.soldOut === false).length;
     },
     /**
      * 商品の在庫状況を変更する
      * @param {object} 商品情報
      */
     stockItem(item) {
-      item.soldOut = false
+      item.soldOut = false;
     },
     /**
      * 現在時刻を取得する
      */
     getDate() {
-      return Date.now()
+      return Date.now();
     },
   },
   computed: {
     stockQuantityComputed() {
-      return this.items.filter(item => item.soldOut === false).length
+      return this.items.filter((item) => item.soldOut === false).length;
     },
     getDateComputed() {
-      return Date.now()
+      return Date.now();
     },
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -169,13 +159,13 @@ body {
   margin-bottom: 40px;
 }
 
-.header>img {
+.header > img {
   width: 100px;
   height: 100px;
   margin-right: 20px;
 }
 
-.header>h1 {
+.header > h1 {
   font-size: 80px;
   font-weight: bold;
   line-height: 80px;
@@ -200,31 +190,31 @@ body {
   transform: scale(1.05);
 }
 
-.item>div.thumbnail>img {
+.item > div.thumbnail > img {
   width: 100%;
   height: calc(100%);
   object-fit: cover;
 }
 
-.item>div.description {
+.item > div.description {
   text-align: left;
   margin-top: 20px;
 }
 
-.item>div.description>p {
+.item > div.description > p {
   margin-top: 0px;
   margin-bottom: 0px;
   font-size: 18px;
   line-height: 25px;
 }
 
-.item>div.description>span {
+.item > div.description > span {
   display: block;
   margin-top: 10px;
   font-size: 20px;
 }
 
-.item>div.description>span>.price {
+.item > div.description > span > .price {
   font-size: 28px;
   font-weight: bold;
 }
