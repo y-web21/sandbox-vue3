@@ -3,6 +3,7 @@
     <img src="/images/logo.svg" alt="">
     <h1>Vue.js ハンズオン</h1>
   </header>
+  <div>商品数：{{ stockQuantity() }}</div>
   <main class="main">
     <template v-for="item in items" :key="item.id">
       <div v-if="!item.soldOut">
@@ -17,7 +18,9 @@
           </div>
         </div>
       </div>
-      <div v-else>うりきれぢゃ・・・</div>
+      <div v-else>
+        うりきれぢゃ・・・<button type="button" @click="stockItem(item)">入荷</button>
+      </div>
     </template>
   </main>
 
@@ -98,8 +101,25 @@ export default {
     }
   },
   methods: {
+    /**
+     * 価格を3桁ごとのカンマ付きで返す
+     * @param {number} price 価格
+     */
     pricePrefix(price) {
       return price.toLocaleString()
+    },
+    /**
+     * 在庫のある商品数を返す
+     */
+    stockQuantity() {
+      return this.items.filter(item => item.soldOut === false ).length
+    },
+    /**
+     * 商品の在庫状況を変更する
+     * @param {object} 商品情報
+     */
+    stockItem(item) {
+      item.soldOut = false
     }
   }
 }
