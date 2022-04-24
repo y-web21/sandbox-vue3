@@ -48,7 +48,11 @@
   </ul>
 
   <h3>安いだけのメニュウはこれだ！</h3>
-  <p>{{ lowestPriceItem.name }} {{ pricePrefix(lowestPriceItem.price) }}</p>
+  <p>{{ getLowestPriceItem.name }} {{ pricePrefix(getLowestPriceItem.price) }}</p>
+  <h4>安いだけの固形物</h4>
+  <p>{{ getLowestPriceFood.name }} {{ pricePrefix(getLowestPriceFood.price) }}</p>
+  <h4>安い液体及び流動体</h4>
+  <p>{{ getLowestPriceDrink.name }} {{ pricePrefix(getLowestPriceDrink.price) }}</p>
 
   <!-- :key の index 指定は、並び替えなどで不具合があるため非推奨とのこと -->
   <!-- だが、:key の指定がないとエラーを吐くため必須だと思われる。 []の配列形式だと、indexでも渡しておかないと動かないのでとりあえず渡す -->
@@ -90,7 +94,7 @@ export default {
           id: 2,
           name: "小麦粉",
           category: "food",
-          description: "焼きました。夢。",
+          description: "焼きました。ゆ、夢～。",
           price: 20,
           image: "/images/item2.jpg",
           soldOut: false,
@@ -155,6 +159,22 @@ export default {
     alert() {
       alert("keyup しましたね！！");
     },
+    getLowestPrice(items) {
+      console.log(items[0]);
+      return items[
+        (() => {
+          let min = 10000000;
+          let index = 0;
+          for (let i = 0; i < items.length; i++) {
+            if (min > items[i].price) {
+              min = items[i].price;
+              index = i;
+            }
+          }
+          return index;
+        })()
+      ];
+    },
   },
   computed: {
     stockQuantityComputed() {
@@ -163,20 +183,14 @@ export default {
     getDateComputed() {
       return Date.now();
     },
-    lowestPriceItem() {
-      return this.items[
-        (() => {
-          let min = 10000000;
-          let index = 0;
-          for (let i = 0; i < this.items.length; i++) {
-            if (min > this.items[i].price) {
-              min = this.items[i].price;
-              index = i;
-            }
-          }
-          return index;
-        })()
-      ];
+    getLowestPriceItem() {
+      return this.getLowestPrice(this.items);
+    },
+    getLowestPriceFood() {
+      return this.getLowestPrice(this.getFood);
+    },
+    getLowestPriceDrink() {
+      return this.getLowestPrice(this.getDrink);
     },
     getFood() {
       return this.items.filter((item) => item.category === "food");
