@@ -37,23 +37,34 @@
     <input v-on:keyup.enter="alert" />
   </main>
 
-  <div id="app">
-    <!-- :key の index 指定は、並び替えなどで不具合があるため非推奨とのこと -->
-    <!-- だが、:key の指定がないとエラーを吐くため必須だと思われる。 []の配列形式だと、indexでも渡しておかないと動かないのでとりあえず渡す -->
-    <ul>
-      <li v-for="(page, index) in pages" :key="index">{{ index }}, {{ page }}</li>
-    </ul>
-    <!-- key value (index) の取り出し -->
-    <!-- 変数の名前は自由だが、value, key, index が固定のようだ。 -->
-    <ul>
-      <li v-for="(value, key, yandex) in dicts" :key="yandex">{{ yandex }}, {{ key }}, {{ value }}</li>
-    </ul>
-  </div>
+  <h3>food menu</h3>
+  <ul>
+    <li v-for="food in getFood" :key="food.id">{{ food.name }} - {{ pricePrefix(food.price) }}</li>
+  </ul>
+
+  <h3>drink menu</h3>
+  <ul>
+    <li v-for="drink in getDrink" :key="drink.id">{{ drink.name }} - {{ drink.price }}</li>
+  </ul>
+
+
+  <!-- :key の index 指定は、並び替えなどで不具合があるため非推奨とのこと -->
+  <!-- だが、:key の指定がないとエラーを吐くため必須だと思われる。 []の配列形式だと、indexでも渡しておかないと動かないのでとりあえず渡す -->
+  <ul>
+    <li v-for="(page, index) in pages" :key="index">{{ index }}, {{ page }}</li>
+  </ul>
+  <!-- key value (index) の取り出し -->
+  <!-- 変数の名前は自由だが、value, key, index が固定のようだ。 -->
+  <ul>
+    <li v-for="(value, key, yandex) in dicts" :key="yandex">{{ yandex }}, {{ key }}, {{ value }}</li>
+  </ul>
 
   <!-- v-show は、display: none;として処理されるだけで、DOMには存在する。 -->
   <!-- DOMを再構成しない分切り替えコストに優れるが、初期のDOM量は増える -->
   <div v-show="true">something</div>
   <div v-show="false">something</div>
+
+  {{ getFood }}
 </template>
 
 <script>
@@ -65,6 +76,7 @@ export default {
         {
           id: 1,
           name: "アボカドディップバケッ！",
+          category: "food",
           description:
             "刻んだ野菜をディップに優しいアボカドに味のソースと混ぜて。こんがり焼いたバゲットとお召し上がれ。",
           price: 48000,
@@ -75,6 +87,7 @@ export default {
         {
           id: 2,
           name: "小麦粉",
+          category: "food",
           description: "焼きました。夢。",
           price: 20,
           image: "/images/item2.jpg",
@@ -84,6 +97,7 @@ export default {
         {
           id: 3,
           name: "HOP WTR",
+          category: "drink",
           description: "生まれはロスの炭酸水。CO2!CO2!",
           price: 320,
           image: "/images/item3.jpg",
@@ -93,6 +107,7 @@ export default {
         {
           id: 4,
           name: "チーレンチライ",
+          category: "food",
           description: "イタリア大好きなみんなをだっぷりかけたアツアツです。フライの一品フレンチ。",
           price: 670,
           image: "/images/item4.jpg",
@@ -145,6 +160,12 @@ export default {
     },
     getDateComputed() {
       return Date.now();
+    },
+    getFood() {
+      return this.items.filter((item) => item.category === "food");
+    },
+    getDrink() {
+      return this.items.filter((item) => item.category === "drink");
     },
   },
 };
