@@ -3,8 +3,8 @@
     <img src="/images/logo.svg" alt="" />
     <h1>Vue.js ハンズオン</h1>
   </header>
-  <div>商品数：{{ stockQuantity() }}</div>
-  <div>商品数property: {{ stockQuantityComputed }}</div>
+  <div>商品数(method): {{ stockQuantity() }}</div>
+  <div>商品数(computed(property)): {{ stockQuantityComputed }}</div>
   <div>now_method: {{ getDate() }}</div>
   <div>now_computed: {{ getDateComputed }}</div>
   <main class="main">
@@ -47,6 +47,8 @@
     <li v-for="drink in getDrink" :key="drink.id">{{ drink.name }} - {{ drink.price }}</li>
   </ul>
 
+  <h3>安いだけのメニュウはこれだ！</h3>
+  <p>{{ lowestPriceItem.name }} {{ pricePrefix(lowestPriceItem.price) }}</p>
 
   <!-- :key の index 指定は、並び替えなどで不具合があるため非推奨とのこと -->
   <!-- だが、:key の指定がないとエラーを吐くため必須だと思われる。 []の配列形式だと、indexでも渡しておかないと動かないのでとりあえず渡す -->
@@ -160,6 +162,21 @@ export default {
     },
     getDateComputed() {
       return Date.now();
+    },
+    lowestPriceItem() {
+      return this.items[
+        (() => {
+          let min = 10000000;
+          let index = 0;
+          for (let i = 0; i < this.items.length; i++) {
+            if (min > this.items[i].price) {
+              min = this.items[i].price;
+              index = i;
+            }
+          }
+          return index;
+        })()
+      ];
     },
     getFood() {
       return this.items.filter((item) => item.category === "food");
