@@ -1,0 +1,33 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    // https://v3.ja.vuejs.org/cookbook/debugging-in-vscode.html
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "vuejs: chrome",
+            "url": "http://localhost:8080",
+            // "webRoot": "${workspaceFolder}/src",
+            "breakOnLoad": true,
+            // "sourceMapPathOverrides": {
+            //     "webpack:///./src/*": "${webRoot}/*"
+            // }
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "name": "vuejs: firefox",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}/src",
+            "pathMappings": [
+                {
+                    "url": "webpack:///src/",
+                    "path": "${webRoot}/"
+                }
+            ]
+        }
+    ]
+}
