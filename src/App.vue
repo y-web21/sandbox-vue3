@@ -15,9 +15,9 @@
         <div
           class="item"
           :class="{ 'selected-item': item.selected }"
+          tabindex="0"
           @click="item.selected = !item.selected"
           @keyup.enter="item.selected = !item.selected"
-          tabindex="0"
         >
           <div class="thumbnail">
             <img :src="item.image" alt="" />
@@ -70,18 +70,17 @@
   <div v-show="true">something</div>
   <div v-show="false">something</div>
 
-  {{ u(200) }}
+  {{ withTax(1000) }}
   {{ getFood }}
 </template>
 
 <script>
-import util from './utility'
+import { calculateTax } from "./utility";
 
 export default {
   name: "App",
   data() {
     return {
-      u: util,
       items: [
         {
           id: 1,
@@ -125,6 +124,7 @@ export default {
           selected: false,
         },
       ],
+      tax: 1.08,
       pages: ["page A", "page B", "page C"],
       dicts: {
         diA: "dictA",
@@ -133,7 +133,33 @@ export default {
       },
     };
   },
+  computed: {
+    stockQuantityComputed() {
+      return this.items.filter((item) => item.soldOut === false).length;
+    },
+    getDateComputed() {
+      return Date.now();
+    },
+    getLowestPriceItem() {
+      return this.getLowestPrice(this.items);
+    },
+    getLowestPriceFood() {
+      return this.getLowestPrice(this.getFood);
+    },
+    getLowestPriceDrink() {
+      return this.getLowestPrice(this.getDrink);
+    },
+    getFood() {
+      return this.items.filter( item => item.category === "food");
+    },
+    getDrink() {
+      return this.items.filter( item => item.category === "drink");
+    },
+  },
   methods: {
+    withTax(price) {
+      return calculateTax(price, this.tax);
+    },
     /**
      * 価格を3桁ごとのカンマ付きで返す
      * @param {number} price 価格
@@ -178,29 +204,6 @@ export default {
           return index;
         })()
       ];
-    },
-  },
-  computed: {
-    stockQuantityComputed() {
-      return this.items.filter((item) => item.soldOut === false).length;
-    },
-    getDateComputed() {
-      return Date.now();
-    },
-    getLowestPriceItem() {
-      return this.getLowestPrice(this.items);
-    },
-    getLowestPriceFood() {
-      return this.getLowestPrice(this.getFood);
-    },
-    getLowestPriceDrink() {
-      return this.getLowestPrice(this.getDrink);
-    },
-    getFood() {
-      return this.items.filter((item) => item.category === "food");
-    },
-    getDrink() {
-      return this.items.filter((item) => item.category === "drink");
     },
   },
 };

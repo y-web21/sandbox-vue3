@@ -1,6 +1,3 @@
-// const price = 1000
-const tax = 1.10
+const calculateTax = (price, tax = 1.10) => Math.floor(price * tax)
 
-const withTax = (price) => Math.floor(price * tax) + 'yen'
-
-export default withTax
+export { calculateTax };
