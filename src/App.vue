@@ -35,6 +35,9 @@
     </template>
 
     <div>
+      <p>last search : {{ formatDate() }}</p>
+      <p>last search : {{ this.lastQueryTime }}</p>
+      <p>last search : {{ this.searchQuery }}</p>
       <input v-model="searchQuery" @keyup.enter="alert" placeholder="商品名を入力してください" />
       <ul>
         <li v-for="item in filterMenu" :key="item.id">{{ item.name }}</li>
@@ -80,7 +83,7 @@
 </template>
 
 <script>
-import { calculateTax } from "./utility";
+import { calculateTax, formatDate } from "./utility";
 
 export default {
   name: "App",
@@ -120,7 +123,7 @@ export default {
         },
         {
           id: 4,
-          name: "チーレンチライ",
+          name: "チーレンチライi",
           category: "food",
           description: "イタリア大好きなみんなをだっぷりかけたアツアツです。フライの一品フレンチ。",
           price: 670,
@@ -147,6 +150,8 @@ export default {
         diC: "dictC",
       },
       searchQuery: "",
+      prevQueryResult: [],
+      lastQueryTime: "",
     };
   },
   computed: {
@@ -172,14 +177,30 @@ export default {
       return this.items.filter((item) => item.category === "drink");
     },
     filterMenu: function () {
-      if (this.searchQuery) {
-        return this.items.filter((item) => item.name.indexOf(this.searchQuery) > -1);
+      let qqq;
+
+      if (this.searchQuery && typeof qqq === "undefined") {
+        // computed からは直接 data を変更できないので methodをコール
+        console.log("bbb");
+        qqq = this.items.filter((item) => item.name.indexOf(this.searchQuery) > -1);
       } else {
-        return [];
+        console.log("aaa");
+        qqq = [];
       }
+      return qqq;
     },
   },
   methods: {
+    updateLastQueryTime() {
+      this.lastQueryTime = Date.now();
+    },
+    /**
+     * YYYY-M-D h:mm:ss
+     */
+    formatDate() {
+      if (!this.lastQueryTime) this.lastQueryTime = Date.now();
+      return formatDate(new Date(this.lastQueryTime));
+    },
     withTax(price) {
       return calculateTax(price, this.tax);
     },
@@ -227,6 +248,24 @@ export default {
           return index;
         })()
       ];
+    },
+  },
+  // computed からは直接 data を変更できないので methodをコール
+  watch: {
+    searchQuery: function () {
+      let qqq;
+      console.log(this.lastQueryTime / 1000, (Date.now() - 2000) / 1000);
+      if (this.lastQueryTime > Date.now() - 2000) {
+        return this.prevQueryResult;
+      }
+      if (this.searchQuery) {
+        qqq = this.items.filter((item) => item.name.indexOf(this.searchQuery) > -1);
+        this.updateLastQueryTime();
+        this.prevQueryResult = qqq
+      } else {
+        qqq = [];
+      }
+      return qqq;
     },
   },
 };
