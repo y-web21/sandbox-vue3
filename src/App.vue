@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <img src="/images/logo.svg" alt="" />
-    <h1>Vue.js ハンズオン</h1>
+    <h1>Vue.js ハンズオンだったもの</h1>
   </header>
   <div>商品数(method): {{ stockQuantity() }}</div>
   <div>商品数(computed(property)): {{ stockQuantityComputed }}</div>
@@ -34,7 +34,12 @@
       <div v-else>うりきれぢゃ・・・<button type="button" @click="stockItem(item)">入荷</button></div>
     </template>
 
-    <input v-on:keyup.enter="alert" />
+    <div>
+      <input v-model="searchQuery" @keyup.enter="alert" placeholder="商品名を入力してください" />
+      <ul>
+        <li v-for="item in filterMenu" :key="item.id">{{ item.name }}</li>
+      </ul>
+    </div>
   </main>
 
   <h3>food menu</h3>
@@ -123,6 +128,16 @@ export default {
           soldOut: false,
           selected: false,
         },
+        {
+          id: 5,
+          name: "fire mushroom",
+          category: "food",
+          description: "undefined",
+          price: 999,
+          image: "https://placehold.jp/3d4070/ffffff/150x150.png",
+          soldOut: false,
+          selected: false,
+        },
       ],
       tax: 1.08,
       pages: ["page A", "page B", "page C"],
@@ -131,6 +146,7 @@ export default {
         diB: "dictB",
         diC: "dictC",
       },
+      searchQuery: "",
     };
   },
   computed: {
@@ -150,10 +166,17 @@ export default {
       return this.getLowestPrice(this.getDrink);
     },
     getFood() {
-      return this.items.filter( item => item.category === "food");
+      return this.items.filter((item) => item.category === "food");
     },
     getDrink() {
-      return this.items.filter( item => item.category === "drink");
+      return this.items.filter((item) => item.category === "drink");
+    },
+    filterMenu: function () {
+      if (this.searchQuery) {
+        return this.items.filter((item) => item.name.indexOf(this.searchQuery) > -1);
+      } else {
+        return [];
+      }
     },
   },
   methods: {
