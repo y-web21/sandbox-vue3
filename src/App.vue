@@ -70,14 +70,18 @@
   <div v-show="true">something</div>
   <div v-show="false">something</div>
 
+  {{ u(200) }}
   {{ getFood }}
 </template>
 
 <script>
+import util from './utility'
+
 export default {
   name: "App",
   data() {
     return {
+      u: util,
       items: [
         {
           id: 1,
