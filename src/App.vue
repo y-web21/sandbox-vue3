@@ -103,7 +103,7 @@ export default {
         },
         {
           id: 2,
-          name: "小麦粉",
+          name: "小麦粉iii",
           category: "food",
           description: "焼きました。ゆ、夢～。",
           price: 20,
@@ -123,7 +123,7 @@ export default {
         },
         {
           id: 4,
-          name: "チーレンチライi",
+          name: "チーレンチライif",
           category: "food",
           description: "イタリア大好きなみんなをだっぷりかけたアツアツです。フライの一品フレンチ。",
           price: 670,
@@ -177,19 +177,15 @@ export default {
       return this.items.filter((item) => item.category === "drink");
     },
     filterMenu: function () {
-      let qqq;
-
-      if (this.searchQuery && typeof qqq === "undefined") {
+      if (this.searchQuery) {
         // computed からは直接 data を変更できないので methodをコール
-        console.log("bbb");
-        qqq = this.items.filter((item) => item.name.indexOf(this.searchQuery) > -1);
-      } else {
-        console.log("aaa");
-        qqq = [];
+        this.updateLastQueryTime();
+        return this.items.filter((item) => item.name.indexOf(this.searchQuery) > -1);
       }
-      return qqq;
+      return [];
     },
   },
+
   methods: {
     updateLastQueryTime() {
       this.lastQueryTime = Date.now();
@@ -248,24 +244,6 @@ export default {
           return index;
         })()
       ];
-    },
-  },
-  // computed からは直接 data を変更できないので methodをコール
-  watch: {
-    searchQuery: function () {
-      let qqq;
-      console.log(this.lastQueryTime / 1000, (Date.now() - 2000) / 1000);
-      if (this.lastQueryTime > Date.now() - 2000) {
-        return this.prevQueryResult;
-      }
-      if (this.searchQuery) {
-        qqq = this.items.filter((item) => item.name.indexOf(this.searchQuery) > -1);
-        this.updateLastQueryTime();
-        this.prevQueryResult = qqq
-      } else {
-        qqq = [];
-      }
-      return qqq;
     },
   },
 };
